@@ -1,0 +1,28 @@
+# Node dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+.next/
+build/
+
+# Editor & system files
+.vscode/
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Lockfiles (optional - only ignore if not used)
+# package-lock.json
+# yarn.lock
+
+# MongoDB data
+/mongo-data/
+
+# Next.js build output
+/frontend/.next/
+.next/
