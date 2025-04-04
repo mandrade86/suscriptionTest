@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { addTask } from '@/actions/addTask';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 import {
   Dialog,
@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
 export function AddTaskModal() {
 
@@ -57,8 +57,8 @@ export function AddTaskModal() {
         <DialogHeader>
           <DialogTitle>Add Task</DialogTitle>
         </DialogHeader>
-        <div className="flex flex-col gap-4 py-4">
-          <Label htmlFor="name">Title</Label>
+        <div className='flex flex-col gap-4 py-4'>
+          <Label htmlFor='name'>Title</Label>
           <Input
             value={title}
             onChange={e => setTitle(e.target.value)} />

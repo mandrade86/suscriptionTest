@@ -36,7 +36,7 @@ export function Tasks(props: Props) {
         }
       </div>
       <Toaster 
-        position="bottom-left" 
+        position='bottom-left' 
         richColors={true}
         closeButton={true}/>
     </div>

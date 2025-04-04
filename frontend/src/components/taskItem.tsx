@@ -61,16 +61,16 @@ export function TaskItem(props: Props) {
   }
 
   return (
-    <li className="flex items-center gap-4 py-3 pl-4 pr-2">
+    <li className='flex items-center gap-4 py-3 pl-4 pr-2'>
       {isEditing &&
         <Fragment>
           <Checkbox id={task._id} checked={task.completed} disabled/>
           <Input value={title} onChange={e => setTitle(e.target.value)}/>
           <div className='flex gap-2'>
-            <Button variant='outline' size="icon" onClick={handleSave}>
+            <Button variant='outline' size='icon' onClick={handleSave}>
               <Check/>
             </Button>
-            <Button variant='outline' size="icon" onClick={handleCancel}>
+            <Button variant='outline' size='icon' onClick={handleCancel}>
               <X className='text-red-600'/>
             </Button>
           </div>
@@ -90,7 +90,7 @@ export function TaskItem(props: Props) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div>
-                <Button variant='ghost' size="icon">
+                <Button variant='ghost' size='icon'>
                   <MoreVertical/>
                 </Button>
               </div>
