@@ -1,16 +1,14 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import mongoose, { Schema, model } from "mongoose";
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
 mongoose
-  .connect("mongodb://localhost:27017/test", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect("mongodb://localhost:27017/test")
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
