@@ -1,46 +1,25 @@
-export default function Home() {
-  const [tasks, setTasks] = useState([]);
-  const [title, setTitle] = useState("");
+import { fetchTasks } from '@/actions/fetchTask';
+import { Tasks } from '@/components/tasks';
 
-  const fetchTasks = () => {
-    fetch("http://localhost:3001/tasks", {
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then((data) => setTasks(data))
-      .catch((error) => console.error("Error fetching tasks:", error));
-  };
+export default async function Home() {
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  const addTask = () => {
-    fetch("http://localhost:3001/task", {
-      method: "PUT",
-      body: JSON.stringify({ title, date: Date.now() }),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        setTitle("");
-        fetchTasks();
-      })
-      .catch((error) => console.error("Error adding task:", error));
-  };
+  const tasks = await fetchTasks();
 
   return (
-    <div>
-      <h1>Tasks</h1>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} />
-      <button onClick={addTask}>Add</button>
-      <ul>
-        {tasks.map((task: any) => (
-          <li key={task._id}>
-            {task.title} - {task.completed ? "Done" : "Pending"}
-            <div>Completed on:{task.completedOn}</div>
-          </li>
-        ))}
-      </ul>
+    <div className='h-screen flex flex-col'>
+      <div className='flex items-center h-16 px-4 shadow-sm'>
+        <h1 className='text-2xl font-semibold'>Suscription Test</h1>
+      </div>
+      <div className='flex-1 overflow-hidden'>
+        {tasks.ok &&
+          <Tasks tasks={tasks.tasks}/>
+        }
+        {!tasks.ok &&
+          <div className='text-center text-gray-500 mt-12 text-lg'>
+            Oops! An error happened
+          </div>
+        }
+      </div>
     </div>
   );
 }
