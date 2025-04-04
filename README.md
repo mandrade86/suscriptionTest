@@ -14,6 +14,9 @@ A full-stack TODO application built with **Next.js**, **Tailwind CSS**, **Expres
 - Containerized with Docker & Docker Compose
 
 ---
+## 🧪 Functionality Demo
+
+🎥 Watch the full demo here: [Click to watch](https://youtu.be/vdcjjRE75X8)
 
 ## 🗂️ Project Structure
 
@@ -46,9 +49,25 @@ Ensure Docker is installed, then run:
 docker-compose up --build
 ```
 
-> This spins up MongoDB.
+> This spins up MongoDB, and Redis.
 
 ---
+
+
+## 🚀 Redis Caching
+
+To improve performance and reduce unnecessary database queries, the project implements **Redis** caching for frequently accessed endpoints.
+
+### 🔧 How It Works
+- The `/tasks` endpoint caches the list of tasks in Redis.
+- When a task is **created**, **updated**, or **deleted**, the cache is automatically **invalidated** to ensure fresh data is served on the next request.
+- This ensures fast responses while keeping the data consistent.
+
+### 📦 Tech Stack
+- Redis is run using Docker and connected through the backend.
+- The `redis` Node.js client is used in the backend to handle set/get/del operations.
+
+> Redis helps our TODO app scale better and respond faster 🚀
 
 ## 🧑‍💻 Local Development
 
