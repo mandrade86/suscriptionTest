@@ -1,43 +1,37 @@
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import { TaskModel } from './entities/task.entity';
+import { TaskRepository } from './repositories/task.repository';
+import { TaskService } from './services/task.service';
+import { TaskController } from './controllers/task.controller';
+import { createTaskRoutes } from './routes/task.routes';
 
 const app = express();
+
+// Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
+// MongoDB connection
 mongoose
-  .connect("mongodb://localhost:27017/test", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+  .connect('mongodb://localhost:27017/test')
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
-interface ITask {
-  title: string;
-  completed: boolean;
-}
+// Dependency injection
+const taskRepository = new TaskRepository(TaskModel);
+const taskService = new TaskService(taskRepository);
+const taskController = new TaskController(taskService);
 
-const taskSchema = new Schema<ITask>({
-  title: { type: String, required: true },
-  completed: { type: Boolean, default: false },
+// Routes
+app.use('/', createTaskRoutes(taskController));
+
+// Error handling middleware
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something broke!' });
 });
 
-const Task = model<ITask>("Task", taskSchema);
-
-app.post("/task", (req, res) => {
-  const newTask = new Task({
-    title: req.body.title,
-    completed: req.body.completed,
-  });
-  newTask.save();
-  res.status(201).json(newTask);
-});
-
-app.get("/tasks", async (req, res) => {
-  const tasks = Task.find();
-  res.json(tasks);
-});
-
-app.listen(3001, () => console.log("Server running on port 3001"));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
