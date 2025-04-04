@@ -1,16 +1,14 @@
 import express from "express";
 import cors from "cors";
-import bodyParser from "body-parser";
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
+import { connectDB } from "./Config/db";
 
 const app = express();
-app.use(cors());
-app.use(bodyParser.json());
 
-mongoose
-  .connect("mongodb://localhost:27017/test")
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+app.use(cors());
+app.use(express.json());
+
+connectDB();
 
 interface ITask {
   title: string;
