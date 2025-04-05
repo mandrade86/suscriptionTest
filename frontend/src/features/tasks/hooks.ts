@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { Task } from "./types";
-import { fetchTasksApi, createTaskApi } from "./api";
+import {
+  fetchTasksApi,
+  createTaskApi,
+  updateTaskApi,
+  deleteTaskApi,
+} from "./api";
 
 export const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -22,5 +27,15 @@ export const useTasks = () => {
     fetchTasks();
   };
 
-  return { tasks, loading, addTask };
+  const updateTask = async (id: string, updates: Partial<Task>) => {
+    await updateTaskApi(id, updates);
+    fetchTasks();
+  };
+
+  const deleteTask = async (id: string) => {
+    await deleteTaskApi(id);
+    fetchTasks();
+  };
+
+  return { tasks, loading, addTask, deleteTask, updateTask };
 };

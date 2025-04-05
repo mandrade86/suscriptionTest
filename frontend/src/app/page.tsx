@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { useTasks } from "../features/tasks/hooks";
@@ -6,7 +6,11 @@ import { TaskItem } from "../components/TaskItem";
 
 export default function Home() {
   const [title, setTitle] = useState("");
-  const { tasks, loading, addTask } = useTasks();
+  const { tasks, loading, addTask, deleteTask, updateTask } = useTasks();
+
+  const handleToggle = (id: string, completed: boolean) => {
+    updateTask(id, { completed });
+  };
 
   const handleAdd = () => {
     if (!title.trim()) return;
@@ -29,7 +33,12 @@ export default function Home() {
       ) : (
         <ul>
           {tasks.map((task) => (
-            <TaskItem key={task._id} task={task} />
+            <TaskItem
+              key={task._id}
+              task={task}
+              onDelete={deleteTask}
+              onToggle={handleToggle}
+            />
           ))}
         </ul>
       )}

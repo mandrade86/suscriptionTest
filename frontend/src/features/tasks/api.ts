@@ -21,3 +21,24 @@ export const createTaskApi = async (title: string): Promise<Task> => {
   const json = await res.json();
   return json.data;
 };
+
+export const deleteTaskApi = async (id: string): Promise<void> => {
+  await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
+};
+
+export const updateTaskApi = async (
+  id: string,
+  updates: Partial<Task>
+): Promise<Task> => {
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updates),
+  });
+
+  const json = await res.json();
+  return json.data;
+};
