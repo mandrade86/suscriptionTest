@@ -19,14 +19,22 @@ export default function Home() {
   };
 
   return (
-    <main>
-      <h1>Tasks</h1>
-      <input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="New task"
-      />
-      <button onClick={handleAdd}>Add</button>
+    <main className="p-6 max-w-xl mx-auto">
+      <h1 className="text-3xl font-bold mb-4">Tasks</h1>
+      <div className="flex gap-2 mb-4">
+        <input
+          className="border border-gray-300 rounded px-3 py-2 w-full"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="New task"
+        />
+        <button
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          onClick={handleAdd}
+        >
+          Add
+        </button>
+      </div>
 
       {loading ? (
         <p>Loading...</p>
