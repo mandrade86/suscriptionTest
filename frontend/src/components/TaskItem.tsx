@@ -1,3 +1,5 @@
+import { Trash2 } from "lucide-react";
+
 import { Task } from "../features/tasks/types";
 
 interface Props {
@@ -8,26 +10,25 @@ interface Props {
 
 export const TaskItem = ({ task, onDelete, onToggle }: Props) => {
   return (
-    <li className="flex justify-between items-center border-b py-2">
-      <div>
-        <span className={task.completed ? "line-through text-gray-500" : ""}>
+    <li className="flex items-center justify-between p-4 bg-white dark:bg-zinc-800 rounded-md shadow-sm">
+      <div className="flex items-center gap-3">
+        <input
+          type="checkbox"
+          checked={task.completed}
+          onChange={() => onToggle(task._id, !task.completed)}
+          className="accent-blue-600 w-5 h-5"
+        />
+        <span className={task.completed ? "line-through opacity-60" : ""}>
           {task.title}
         </span>
       </div>
-      <div className="flex gap-2">
-        <button
-          className="text-sm text-blue-600 hover:underline"
-          onClick={() => onToggle(task._id, !task.completed)}
-        >
-          {task.completed ? "Undo" : "Complete"}
-        </button>
-        <button
-          className="text-sm text-red-600 hover:underline"
-          onClick={() => onDelete(task._id)}
-        >
-          Delete
-        </button>
-      </div>
+
+      <button
+        onClick={() => onDelete(task._id)}
+        className="text-red-500 hover:text-red-700 transition"
+      >
+        <Trash2 size={20} />
+      </button>
     </li>
   );
 };
