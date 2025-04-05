@@ -25,6 +25,7 @@ export const TaskItem = ({ task, onDelete, onToggle }: Props) => {
 
       <button
         onClick={() => onDelete(task._id)}
+        aria-label="delete"
         className="text-red-500 hover:text-red-700 transition"
       >
         <Trash2 size={20} />
