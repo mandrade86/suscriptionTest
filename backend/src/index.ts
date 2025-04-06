@@ -1,43 +1,19 @@
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
+import { connectToDatabase } from "./db";
+import { createServer } from "./server";
+import config from "./config";
 
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+const startServer = async () => {
+  try {
+    await connectToDatabase();
 
-mongoose
-  .connect("mongodb://localhost:27017/test", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+    const server = createServer();
+    server.listen(config.port, () => {
+      console.log(`Server running on ${config.port}`);
+    });
+  } catch (err) {
+    console.error("Error connecting to the database:", err);
+    process.exit(1);
+  }
+};
 
-interface ITask {
-  title: string;
-  completed: boolean;
-}
-
-const taskSchema = new Schema<ITask>({
-  title: { type: String, required: true },
-  completed: { type: Boolean, default: false },
-});
-
-const Task = model<ITask>("Task", taskSchema);
-
-app.post("/task", (req, res) => {
-  const newTask = new Task({
-    title: req.body.title,
-    completed: req.body.completed,
-  });
-  newTask.save();
-  res.status(201).json(newTask);
-});
-
-app.get("/tasks", async (req, res) => {
-  const tasks = Task.find();
-  res.json(tasks);
-});
-
-app.listen(3001, () => console.log("Server running on port 3001"));
+startServer();

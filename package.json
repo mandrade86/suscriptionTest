@@ -1,0 +1,10 @@
+{
+  "name": "subscription_test",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"cd backend && yarn dev\" \"cd frontend && yarn dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}

@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+dist/
+.next/
+.out/
+.turbo/
+
+# Local config
+.env
+.env.local
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Logs and caches
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Frontend
+frontend/.next/
+frontend/out/
+frontend/package-lock.json
+
+# Backend
+backend/dist/
+backend/package-lock.json
+backend/.turbo/
