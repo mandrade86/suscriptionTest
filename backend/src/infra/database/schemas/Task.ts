@@ -1,11 +1,9 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface ITask extends Document {
-  name: number;
-  cpf: string;
-  email: string;
-  observation: string;
-  colorId: number;
+  title: number;
+  completed: boolean;
+  completedAt: Date;
 }
 
 const TaskSchema: Schema = new Schema(
