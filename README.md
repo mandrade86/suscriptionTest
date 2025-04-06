@@ -16,3 +16,14 @@ It must work perfectly together with the backend.
 Include UI libraries to improve the app’s appearance. (Choose the one you prefer).
 Implement a method to delete any item in the TODO List.
 Implement a method to update any item in the TODO List.
+
+
+In a real environment the env files would not be in the repository, I left them in the repository to make review easier
+1. Start the application
+
+   - Using: `./start.sh --install` you will initialize the application and install the dependencies(It is mandatory to use this command the first time you run it.)
+   - Using: `./start.sh` You will start the application without the need to install dependencies.
+
+6. Using the app
+
+   - After that, just log in to localhost:3000.
