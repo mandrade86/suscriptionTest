@@ -2,11 +2,16 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "CommonJS",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
+    "resolveJsonModule": true,
+    "outDir": "build",
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "rootDir": ".",
+  },
+  "include": ["*.ts", "src/__tests__/**/*.ts"],
+  "exclude": ["node_modules"]
 }

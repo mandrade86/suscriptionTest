@@ -1,0 +1,43 @@
+version: '3.9'
+networks:
+  internal_UJJigBWx:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.238.0/24
+      driver: default
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGO_INITDB_DATABASE: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      internal_UJJigBWx:
+        ipv4_address: ${MONGO_HOST_SERVER}
+
+  backend:
+    build: .
+    container_name: backend
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: '/usr/src/app'
+    env_file: [./.env]
+    ports: ['3001:3001']
+    depends_on:
+      - mongo
+    networks:
+      internal_UJJigBWx:
+        ipv4_address: ${SERVER_HOST}
+
+volumes:
+  mongo-data:
+    driver: local
